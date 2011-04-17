@@ -17,6 +17,8 @@
 		032EBEE3135A23580079FC6E /* photo_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 032EBEE2135A23580079FC6E /* photo_placeholder.png */; };
 		0344E9DB135A3DF0000272BD /* Atlas.m in Sources */ = {isa = PBXBuildFile; fileRef = 0344E9DA135A3DF0000272BD /* Atlas.m */; };
 		0344E9E0135A6F9E000272BD /* SongDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0344E9DF135A6F9E000272BD /* SongDetailViewController.m */; };
+		0347FBEC135AC08600962EA0 /* SongTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0347FBEB135AC08600962EA0 /* SongTableCell.m */; };
+		0347FBEF135AC0A700962EA0 /* SongTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0347FBEE135AC0A200962EA0 /* SongTableItem.m */; };
 		037158FE13576E4B00FC6EE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037158FD13576E4B00FC6EE8 /* UIKit.framework */; };
 		0371590013576E4B00FC6EE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037158FF13576E4B00FC6EE8 /* Foundation.framework */; };
 		0371590213576E4B00FC6EE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0371590113576E4B00FC6EE8 /* CoreGraphics.framework */; };
@@ -225,6 +227,10 @@
 		0344E9DA135A3DF0000272BD /* Atlas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Atlas.m; sourceTree = "<group>"; };
 		0344E9DE135A6F9D000272BD /* SongDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongDetailViewController.h; sourceTree = "<group>"; };
 		0344E9DF135A6F9E000272BD /* SongDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongDetailViewController.m; sourceTree = "<group>"; };
+		0347FBEA135AC08600962EA0 /* SongTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongTableCell.h; sourceTree = "<group>"; };
+		0347FBEB135AC08600962EA0 /* SongTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongTableCell.m; sourceTree = "<group>"; };
+		0347FBED135AC0A000962EA0 /* SongTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongTableItem.h; sourceTree = "<group>"; };
+		0347FBEE135AC0A200962EA0 /* SongTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongTableItem.m; sourceTree = "<group>"; };
 		037158F913576E4B00FC6EE8 /* iHype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iHype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		037158FD13576E4B00FC6EE8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		037158FF13576E4B00FC6EE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -284,6 +290,10 @@
 		032EBDFD1358CA650079FC6E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0347FBEA135AC08600962EA0 /* SongTableCell.h */,
+				0347FBEB135AC08600962EA0 /* SongTableCell.m */,
+				0347FBED135AC0A000962EA0 /* SongTableItem.h */,
+				0347FBEE135AC0A200962EA0 /* SongTableItem.m */,
 				0344E9DD135A6F7D000272BD /* Data Source */,
 				032EBEDC135A225B0079FC6E /* SongTableViewController.h */,
 				032EBEDD135A225B0079FC6E /* SongTableViewController.m */,
@@ -697,6 +707,8 @@
 				032EBEE1135A22BA0079FC6E /* SongTableDataSource.m in Sources */,
 				0344E9DB135A3DF0000272BD /* Atlas.m in Sources */,
 				0344E9E0135A6F9E000272BD /* SongDetailViewController.m in Sources */,
+				0347FBEC135AC08600962EA0 /* SongTableCell.m in Sources */,
+				0347FBEF135AC0A700962EA0 /* SongTableItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

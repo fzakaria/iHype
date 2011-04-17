@@ -9,20 +9,20 @@
 #import "SongTableDataSource.h"
 #import "Song.h"
 #import "SongModel.h"
+#import "SongTableItem.h"
+#import "SongTableCell.h"
 @implementation SongTableDataSource
 
 -(id)init
 {
     if ((self = [super init])) {
-        _songModel = [[SongModel alloc] init];
+        _songModel = [SongModel sharedSongModel];
     }
     
     return self;
 }
 
-- (void)dealloc {
-    TT_RELEASE_SAFELY(_songModel);
-    
+- (void)dealloc {    
     [super dealloc];
 }
 
@@ -39,21 +39,25 @@
     for (int i = 0 ; i < [_songModel.songs count]; ++i)
     {
         Song * song = (Song *) [_songModel.songs objectAtIndex:i];
-        TTTableImageItem* tii = [TTTableImageItem itemWithText:song.title
-                                                      imageURL:@""
-                                                  defaultImage:[UIImage imageNamed:@"photo_placeholder.png"]
-                                                           URL:[NSString stringWithFormat:@"tt://root/%d", i]];
+
+        
+        [songItems addObject:[SongTableItem itemWithTitle:song.title
+                                                      artist: song.artist
+                                                      imageURL:song.albumUrl
+                                                       URL: [NSString stringWithFormat:@"tt://root/%d", i]]];
         
         // There is a bug in Three20's table cell image logic w.r.t.
         // Three20's image cache. By applying this TTImageStyle, we can
         // override the layout logic to force the image to always be a fixed size.
         // (thanks RoBak42 for the workaround!)
-        tii.imageStyle = [TTImageStyle styleWithImage:nil
+       /*tii.imageStyle = [TTImageStyle styleWithImage:nil
                                          defaultImage:[UIImage imageNamed:@"photo_placeholder.png"]
                                           contentMode:UIViewContentModeScaleAspectFill
-                                                 size:CGSizeMake(75.f, 75.f)
+                                                 size:CGSizeMake(50.f, 50.f)
                                                  next:nil];
-        [songItems addObject:tii];
+        */
+       
+         //[songItems addObject:tii];
     }
     [songItems addObject:[TTTableMoreButton itemWithText:@"more…"]];
     self.items = songItems;
@@ -81,5 +85,14 @@
 - (NSString*)subtitleForError:(NSError*)error {
     return NSLocalizedString(@"Sorry, there was an error loading the HypeMachine stream.", @"");
 }
+
+- (Class)tableView:(UITableView*)tableView cellClassForObject:(id) object {   
+    
+    if ([object isKindOfClass:[SongTableItem class]]) {  
+        return [SongTableCell class];  
+    } else {  
+        return [super tableView:tableView cellClassForObject:object];  
+    }  
+} 
 
 @end

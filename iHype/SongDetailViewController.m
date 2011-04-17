@@ -18,31 +18,36 @@
     
     if (self = [super init]) {
         
-        self.tableViewStyle = UITableViewStylePlain;
+        self.tableViewStyle = UITableViewStyleGrouped;
         
-        TTListDataSource *dataSource = [[[TTListDataSource alloc] init] autorelease];
+        //TTListDataSource *dataSource = [[[TTSectionedDataSource alloc] init] autorelease];
         
-        SongTableViewController * songTable = (SongTableViewController *) [[TTNavigator globalNavigator] viewControllerForURL:kAppRootURLPath];
     
-        NSMutableArray * songs = ((SongModel *)songTable.model).songs;
+        NSMutableArray * songs = [SongModel sharedSongModel].songs;
         
         Song *song = (Song *) [songs objectAtIndex:songIndex];
         
         self.title = @"Song Details";
+        /*[dataSource.items addObject:@"Song Details"];
+        [dataSource.items addObject:[TTTableCaptionItem itemWithText:song.title caption:@"Title"]];
+        [dataSource.items addObject:[TTTableCaptionItem itemWithText:song.artist caption:@"Artist"]];
+        [dataSource.items addObject:[TTTableCaptionItem itemWithText:song.link caption:@"Link"]];
+        [dataSource.items addObject:[TTTableCaptionItem itemWithText:song.id caption:@"ID"]];
         
-        [dataSource.items addObject:[TTTableCaptionItem 
-                                     itemWithText:@"asdas"
-                                     caption:@"Title"
-                                     URL:@""]];
+        [dataSource.items addObject:@"Song Controls"];
+        */
         
-        [dataSource.items addObject:[TTTableCaptionItem 
-                                     itemWithText:song.link
-                                     caption:@"Link"
-                                     URL:@""]];  
-    
-        
-        
-        self.dataSource = dataSource;
+        self.dataSource = [TTSectionedDataSource dataSourceWithObjects:
+                           @"Song Details",
+                           [TTTableCaptionItem itemWithText:song.title caption:@"Title"],
+                           [TTTableCaptionItem itemWithText:song.artist caption:@"Artist"],
+                           [TTTableCaptionItem itemWithText:song.link caption:@"Link"],
+                           [TTTableCaptionItem itemWithText:song.id caption:@"ID"],
+                           @"Song Controls",
+                           [TTTableCaptionItem itemWithText:song.id caption:@"ID"],
+                           nil];
+                           
+
         
     }
     return self;

@@ -19,49 +19,32 @@
     if ((self = [super init])) {
         _songs = [[NSMutableArray array] retain];
         _type =  DefaultSongs;
+        _page = 1;
     }
     
     return self;
 }
-/*
-- (void)load:(TTURLRequestCachePolicy)cachePolicy more:(BOOL)more
-{
-    
-    //if we do pageing this should have an if check around it
-    [_songs removeAllObjects]; // Clear out data from previous request.
-    
-    // Construct the request.
-    NSString *host = @"http://hypem.com";
-    NSString *path = @"/feed/popular/now/1/feed.xml";
-    NSString *url = [host stringByAppendingFormat:@"%@", path];
 
-    TTURLRequest* request = [TTURLRequest
-                             requestWithURL: url
-                             delegate: self];
-    
-    request.cachePolicy = cachePolicy;
-    request.cacheExpirationAge = TT_CACHE_EXPIRATION_AGE_NEVER;
-    
-    TTURLXMLResponse* response = [[TTURLXMLResponse alloc] init];
-    response.isRssFeed = YES;
-    request.response = response;
-    TT_RELEASE_SAFELY(response);
-    
-    [request send];
-}
-*/
 - (void)load:(TTURLRequestCachePolicy)cachePolicy more:(BOOL)more
 {
-    
-    //if we do pageing this should have an if check around it
-    [_songs removeAllObjects]; // Clear out data from previous request.
+    if (!self.isLoading)
+    {
+      if (more)
+      {
+          _page++; 
+      }
+      else
+        {
+             _page = 1;
+            [_songs removeAllObjects]; // Clear out data from previous request.
+        }
+    }
     
     // Construct the request.
     NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
     NSString *host = @"http://hypem.com";
     NSString *path = @"/latest";
-    int pageNumber = 1;
-    NSString *url = [host stringByAppendingFormat:@"%@/%d?ax=1&ts=%1.2f", path, pageNumber, time];
+    NSString *url = [host stringByAppendingFormat:@"%@/%d?ax=1&ts=%1.2f", path, _page, time];
     
     TTURLRequest* request = [TTURLRequest
                              requestWithURL: url
@@ -154,6 +137,7 @@
         newSong.id = songID;
         newSong.key = songKey;
         newSong.albumUrl = albumThumbnail;
+        newSong.link = [NSString stringWithFormat:@"http://hypem.com/item/%@", songID];
         newSong.description = @"Base Description";
         
         [newSongs addObject:newSong];
@@ -165,37 +149,23 @@
     
     [super requestDidFinishLoad:request];
 }
-/*
-- (void)requestDidFinishLoad:(TTURLRequest*)request {
-    TTURLXMLResponse* response = request.response;
-    TTDASSERT([response.rootObject isKindOfClass:[NSDictionary class]]);
-    
-    NSDictionary* feed = response.rootObject;
-    NSArray * channel = [feed objectForKey:@"channel"]; 
-    NSArray * items = [channel objectForKey:@"item"];
-    
-     NSMutableArray* newSongs = [NSMutableArray arrayWithCapacity:[items count]];
-    
-    for (NSDictionary * item in items) 
-    {
-        NSString * title = [[item objectForKey:@"title"] objectForXMLNode];
-        NSString * link = [[item objectForKey:@"link"] objectForXMLNode];
-        NSString * description = [[item objectForKey:@"description"] objectForXMLNode];
 
-        Song * newSong = [[Song alloc] init];
-        newSong.title = title;
-        newSong.link = link;
-        newSong.description = description;
-        
-        [newSongs addObject:newSong];
-        TT_RELEASE_SAFELY(newSong);
+#pragma mark Singleton
+
+static SongModel *sharedSongModel = nil;
+
++ (SongModel *) sharedSongModel
+{
+    @synchronized(self)
+	{
+        if (sharedSongModel == nil)
+		{
+            sharedSongModel = [[self alloc] init];
+        }
     }
-    
-    [_songs addObjectsFromArray:newSongs];
-    
-    [super requestDidFinishLoad:request];
+	
+    return sharedSongModel;
 }
-*/
 
 - (void)dealloc
 {
