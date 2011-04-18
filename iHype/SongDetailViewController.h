@@ -12,9 +12,18 @@
 
 @interface SongDetailViewController :  TTTableViewController {
     Song * _song;
+    Song * _nextSong;
+    UIActivityIndicatorView * _spinner;
+    NSTimer * _progressSliderTimer;
+    UISlider * _slider;
 }
 - (id)initWithSongIndex:(int)songIndex;
+-(UISlider *)initSlider;
+-(void) updateSlider:(NSTimer *)aNotification;
 
 @property (nonatomic, retain) Song * song;
+@property (nonatomic, retain) Song * nextSong;
+@property (nonatomic, retain) UIActivityIndicatorView * spinner;
+@property (nonatomic, retain) UISlider * slider;
 
 @end

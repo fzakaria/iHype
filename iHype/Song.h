@@ -19,9 +19,11 @@
     NSString * _link;
     NSTimeInterval _length;
     NSTimeInterval _played;
+    BOOL _isPlaying;
 }
 
 -(NSString*) downloadUrlAsString;
+-(NSString*) lengthAsString;
 
 @property (nonatomic, copy) NSString * id;
 @property (nonatomic, copy) NSString * key;
@@ -32,5 +34,6 @@
 @property (nonatomic, copy) NSString * albumUrl;
 @property (readwrite,assign) NSTimeInterval length;
 @property (readwrite,assign) NSTimeInterval played;
+@property (readwrite,assign) BOOL isPlaying;
 
 @end

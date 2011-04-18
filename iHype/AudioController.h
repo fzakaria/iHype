@@ -14,10 +14,13 @@
 @interface AudioController : NSObject {
     Song * _currentSongPlaying;
     AudioStreamer * _audioStreamer;
+    NSTimer * _progressUpdateTimer;
+    NSString * _cookie;
 }
 
 @property (nonatomic, retain) AudioStreamer * audioStreamer;
 @property (nonatomic, retain) Song * currentSongPlaying;
+@property (nonatomic, copy) NSString * cookie;
 
 +(id) sharedAudioController; //grab singleton
 
@@ -33,6 +36,7 @@
 - (void)seekToTime:(double)newSeekTime;
 - (void)createStreamerWithUrl:(NSURL*)aUrl andCookie:(NSString*)aCookie;
 - (void)destroyStreamer;
+- (void)updateSongProgress:(NSTimer *)updatedTimer;
 
 
 

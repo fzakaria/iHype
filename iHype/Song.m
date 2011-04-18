@@ -20,10 +20,29 @@
 @synthesize albumUrl = _albumUrl;
 @synthesize length = _length;
 @synthesize played = _played;
+@synthesize isPlaying = _isPlaying;
+
+-(id)init
+{
+    if ((self = [super init])) {
+        self.length = 0;
+        self.played = 0;
+    }
+    
+    return self;
+}
 
 -(NSString*) downloadUrlAsString
 {
     return [NSString stringWithFormat:@"http://hypem.com/serve/play/%@/%@.mp3", self.id, self.key];
+}
+
+-(NSString*) lengthAsString
+{
+    int minutes = floor([self length]/60);
+    int seconds = round([self length]- minutes * 60);
+    NSString * timeString = [NSString stringWithFormat:@"%d:%d", minutes, seconds];
+    return timeString;
 }
 
 - (void) dealloc {

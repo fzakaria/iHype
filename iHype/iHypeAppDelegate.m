@@ -15,6 +15,19 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application
 {
+    //This is how I found to add playing the music in the background
+    UIDevice *thisDevice = [UIDevice currentDevice];
+    if([thisDevice respondsToSelector:@selector(isMultitaskingSupported)]
+       && thisDevice.multitaskingSupported)
+    {
+        UIBackgroundTaskIdentifier backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
+            /* just fail if this happens. */
+            NSLog(@"BackgroundTask Expiration Handler is called");
+            [application endBackgroundTask:backgroundTask];
+        }];
+    }
+    
+    
     TTNavigator* navigator = [TTNavigator navigator];
     navigator.persistenceMode = TTNavigatorPersistenceModeNone;
     

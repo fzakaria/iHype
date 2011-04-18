@@ -9,12 +9,15 @@
 #import "AudioController.h"
 #import "AudioStreamer.h"
 #import "Song.h"
+#import "SongModel.h"
 
 static AudioController * sharedAudioController = nil;
 
 @implementation AudioController
 
-@synthesize audioStreamer, currentSongPlaying;
+@synthesize audioStreamer = _audioStreamer;
+@synthesize cookie = _cookie;
+@synthesize currentSongPlaying = _currentSongPlaying;
 
 +(id) sharedAudioController
 {
@@ -31,8 +34,16 @@ static AudioController * sharedAudioController = nil;
 
 - (void)dealloc {
     // Should never be called, but just here for clarity really.
-    currentSongPlaying = nil;
-    audioStreamer = nil;
+    self.currentSongPlaying = nil;
+    self.audioStreamer = nil;
+    self.cookie = nil;
+    
+    if (_progressUpdateTimer)
+	{
+		[_progressUpdateTimer invalidate];
+		_progressUpdateTimer = nil;
+	}
+    
     [super dealloc];
 }
 
@@ -44,18 +55,27 @@ static AudioController * sharedAudioController = nil;
 //
 - (void)createStreamerWithUrl:(NSURL*)aUrl andCookie:(NSString*)aCookie
 {
-    if (audioStreamer)
+    if (self.audioStreamer)
     {
         [self destroyStreamer];
     }
-    audioStreamer = [ [AudioStreamer alloc] initWithURL:aUrl];
-    audioStreamer.cookie = aCookie;
+    self.audioStreamer = [ [AudioStreamer alloc] initWithURL:aUrl];
+    self.cookie = aCookie;
+    self.audioStreamer.cookie = aCookie;
     
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(playbackStateChanged:)
      name:ASStatusChangedNotification
-     object:audioStreamer];
+     object:self.audioStreamer];
+    
+    _progressUpdateTimer =
+    [NSTimer
+     scheduledTimerWithTimeInterval:0.1
+     target:self
+     selector:@selector(updateSongProgress:)
+     userInfo:nil
+     repeats:YES];
     
     //[[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 }
@@ -67,66 +87,97 @@ static AudioController * sharedAudioController = nil;
 //
 - (void)destroyStreamer
 {
-	if (audioStreamer)
+	if (self.audioStreamer)
 	{   
         //[[UIApplication sharedApplication] endReceivingRemoteControlEvents];
         
         [[NSNotificationCenter defaultCenter]
          removeObserver:self
          name:ASStatusChangedNotification
-         object:audioStreamer];
+         object:self.audioStreamer];
         
-		[audioStreamer stop];
-		[audioStreamer release];
-         audioStreamer = nil;
+        [_progressUpdateTimer invalidate];
+		 _progressUpdateTimer = nil;
+        
+		[self.audioStreamer stop];
+		[self.audioStreamer release];
+         self.audioStreamer = nil;
+	}
+}
+
+//
+// updateProgress:
+//
+// Invoked when the AudioStreamer
+// reports that its playback progress has changed.
+//
+- (void)updateSongProgress:(NSTimer *)updatedTimer
+{
+	if (self.audioStreamer.bitRate != 0.0)
+	{
+		double progress = self.audioStreamer.progress;
+		double duration = self.audioStreamer.duration;
+		
+		if (duration > 0)
+		{
+            self.currentSongPlaying.played = progress;
+		}
 	}
 }
 
 -(void) play:(Song *)newSong withCookie:(NSString *)aCookie
 {
-    currentSongPlaying = newSong;
-    [self createStreamerWithUrl:[NSURL URLWithString:[currentSongPlaying downloadUrlAsString]] andCookie:aCookie];
-    [audioStreamer start];
+    if (self.currentSongPlaying != newSong)
+    {
+        if (self.currentSongPlaying)
+            [self pause];
+        [self createStreamerWithUrl:[NSURL URLWithString:[newSong downloadUrlAsString]] andCookie:aCookie];
+    }
+    self.currentSongPlaying = newSong;
+    self.currentSongPlaying.isPlaying = YES;
+    [self.audioStreamer start];
 }
 
 -(void) pause
 {
-    [audioStreamer pause];
+    self.currentSongPlaying.isPlaying = NO;
+    [self.audioStreamer pause];
 }
 
 -(void) stop
 {
-    [audioStreamer stop];
+    self.currentSongPlaying.isPlaying = NO;
+    [self.audioStreamer stop];
 }
 
 - (void)seekToTime:(double)newSeekTime
 {
-    [audioStreamer seekToTime:newSeekTime];
+    [self.audioStreamer seekToTime:newSeekTime];
 }
 
 - (BOOL)isPlaying
 {
-    return [audioStreamer isPlaying];
+    return [self.audioStreamer isPlaying];
 }
 
 - (BOOL)isPaused
 {
-    return [audioStreamer isPaused];
+    return [self.audioStreamer isPaused];
 }
 
 - (BOOL)isWaiting
 {
-    return [audioStreamer isWaiting];
+    return [self.audioStreamer isWaiting];
 }
 
 - (BOOL)isIdle
 {
-    return [audioStreamer isIdle];
+    return [self.audioStreamer isIdle];
 }
 
 -(double) durationPlayed
 {
-    return [audioStreamer duration];
+    return [self.audioStreamer duration];
 }
 
 // playbackStateChanged:
@@ -136,19 +187,25 @@ static AudioController * sharedAudioController = nil;
 //
 - (void)playbackStateChanged:(NSNotification *)aNotification
 {
-	if ([audioStreamer isWaiting])
+	if ([self.audioStreamer isWaiting])
 	{
         NSLog(@"Streaming is waiting...");
 	}
-	else if ([audioStreamer isPlaying])
+	else if ([self.audioStreamer isPlaying])
 	{
 		NSLog(@"Streaming is playing...");
 	}
-	else if ([audioStreamer isIdle])
+	else if ([self.audioStreamer isIdle])
 	{
         NSLog(@"Streaming is idle...");
+        //lets play the next song
+        NSMutableArray * songs = [[SongModel sharedSongModel] songs];
+        int index = [songs indexOfObject:self.currentSongPlaying];
+        Song * nextSong = [songs objectAtIndex:index+1];
+        if (nextSong)
+            [self play:nextSong withCookie:self.cookie];
 	}
-    else if ([audioStreamer isPaused])
+    else if ([self.audioStreamer isPaused])
 	{
         NSLog(@"Streaming is paused...");
 	}

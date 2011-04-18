@@ -93,14 +93,24 @@
     NSArray *artistMatches = [regex matchesInString:htmlString options:0 range:NSMakeRange(0, [htmlString length])];
     
     
+    regex = [NSRegularExpression regularExpressionWithPattern:@"(?<=\ttime:\').*(?=\')"
+                                                      options:NSRegularExpressionCaseInsensitive
+                                                        error:nil];
+    
+    NSArray *timeMatches = [regex matchesInString:htmlString options:0 range:NSMakeRange(0, [htmlString length])];
+    
+    
     regex = [NSRegularExpression regularExpressionWithPattern:@"!-- section(-|\\s)player"
                                                       options:NSRegularExpressionCaseInsensitive|NSRegularExpressionDotMatchesLineSeparators
                                                         error:nil];
     
     NSArray *sectionMatches = [regex matchesInString:htmlString options:0 range:NSMakeRange(0, [htmlString length])];
     
-  
-    NSAssert([titleMatches count] != [titleMatches count] != [artistMatches count] != [idMatches count], "Improper parse");
+    
+    
+    NSNumberFormatter * format = [[NSNumberFormatter alloc] init];
+	[format setNumberStyle:NSNumberFormatterDecimalStyle];;
+	[format setMaximumFractionDigits:2];
     
     NSMutableArray* newSongs = [NSMutableArray arrayWithCapacity:[titleMatches count]];
     NSString * albumThumbnail = nil;
@@ -110,12 +120,14 @@
         NSTextCheckingResult * artistMatch = [artistMatches objectAtIndex:i];
         NSTextCheckingResult * idMatch = [idMatches objectAtIndex:i];
         NSTextCheckingResult * keyMatch = [keyMatches objectAtIndex:i];
+        NSTextCheckingResult * timeMatch = [timeMatches objectAtIndex:i];
         NSTextCheckingResult * sectionMatch = [sectionMatches objectAtIndex:i];
 
         NSString * songTitle = [htmlString substringWithRange:titleMatch.range];
         NSString * songArtist = [htmlString substringWithRange:artistMatch.range];
         NSString * songID = [htmlString substringWithRange:idMatch.range];
         NSString * songKey = [htmlString substringWithRange:keyMatch.range];
+        NSString * timeString = [htmlString substringWithRange:timeMatch.range];
         NSString * sectionString = [htmlString substringWithRange:sectionMatch.range];
         
         if ([sectionString isEqualToString:@"!-- section player"]) //this means we are not a similar post
@@ -146,10 +158,14 @@
         newSong.link = [NSString stringWithFormat:@"http://hypem.com/item/%@", songID];
         newSong.description = @"Base Description";
         
+        NSNumber * timeAsNumber = [format numberFromString:timeString];
+        newSong.length = [timeAsNumber doubleValue];
+        
         [newSongs addObject:newSong];
         TT_RELEASE_SAFELY(newSong);
     }
     
+    [format release];
     [htmlString release];
     [_songs addObjectsFromArray:newSongs];
     
