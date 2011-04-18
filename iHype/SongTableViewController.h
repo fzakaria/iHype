@@ -8,7 +8,6 @@
 #import "Three20/Three20.h"
 
 @interface SongTableViewController  : TTTableViewController {
-    
 }
 
 @end

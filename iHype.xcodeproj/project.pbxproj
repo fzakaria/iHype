@@ -19,12 +19,19 @@
 		0344E9E0135A6F9E000272BD /* SongDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0344E9DF135A6F9E000272BD /* SongDetailViewController.m */; };
 		0347FBEC135AC08600962EA0 /* SongTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0347FBEB135AC08600962EA0 /* SongTableCell.m */; };
 		0347FBEF135AC0A700962EA0 /* SongTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0347FBEE135AC0A200962EA0 /* SongTableItem.m */; };
+		0347FC4E135ADA8F00962EA0 /* HypeMachineURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0347FC4D135ADA8D00962EA0 /* HypeMachineURLRequest.m */; };
 		037158FE13576E4B00FC6EE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037158FD13576E4B00FC6EE8 /* UIKit.framework */; };
 		0371590013576E4B00FC6EE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037158FF13576E4B00FC6EE8 /* Foundation.framework */; };
 		0371590213576E4B00FC6EE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0371590113576E4B00FC6EE8 /* CoreGraphics.framework */; };
 		0371590813576E4B00FC6EE8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0371590613576E4B00FC6EE8 /* InfoPlist.strings */; };
 		0371590B13576E4B00FC6EE8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0371590A13576E4B00FC6EE8 /* main.m */; };
 		0371590E13576E4B00FC6EE8 /* iHypeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0371590D13576E4B00FC6EE8 /* iHypeAppDelegate.m */; };
+		03EACFC4135BA349001274A3 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 03EACFC3135BA349001274A3 /* AudioStreamer.m */; };
+		03EACFCF135BA390001274A3 /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03EACFCE135BA390001274A3 /* AudioController.m */; };
+		03EACFD9135BB8D0001274A3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EACFD8135BB8D0001274A3 /* CFNetwork.framework */; };
+		03EACFDB135BB96E001274A3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EACFDA135BB96E001274A3 /* AudioToolbox.framework */; };
+		03EACFDD135BB977001274A3 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EACFDC135BB977001274A3 /* MediaPlayer.framework */; };
+		03F6EE4D135B757200A81968 /* PlayPauseTableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6EE4C135B757200A81968 /* PlayPauseTableButton.m */; };
 		3201088596B4756681693705 /* libThree20UICommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3201088596B4756681693704 /* libThree20UICommon.a */; };
 		320A2827FEC940B25BC42C65 /* libThree20Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320A2827FEC940B25BC42C64 /* libThree20Core.a */; };
 		320A5A189C235877202780D5 /* libThree20Network.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320A5A189C235877202780D4 /* libThree20Network.a */; };
@@ -231,6 +238,8 @@
 		0347FBEB135AC08600962EA0 /* SongTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongTableCell.m; sourceTree = "<group>"; };
 		0347FBED135AC0A000962EA0 /* SongTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongTableItem.h; sourceTree = "<group>"; };
 		0347FBEE135AC0A200962EA0 /* SongTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongTableItem.m; sourceTree = "<group>"; };
+		0347FC4C135ADA8B00962EA0 /* HypeMachineURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HypeMachineURLRequest.h; sourceTree = "<group>"; };
+		0347FC4D135ADA8D00962EA0 /* HypeMachineURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HypeMachineURLRequest.m; sourceTree = "<group>"; };
 		037158F913576E4B00FC6EE8 /* iHype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iHype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		037158FD13576E4B00FC6EE8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		037158FF13576E4B00FC6EE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -241,6 +250,15 @@
 		0371590A13576E4B00FC6EE8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0371590C13576E4B00FC6EE8 /* iHypeAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iHypeAppDelegate.h; sourceTree = "<group>"; };
 		0371590D13576E4B00FC6EE8 /* iHypeAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iHypeAppDelegate.m; sourceTree = "<group>"; };
+		03EACFC2135BA349001274A3 /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
+		03EACFC3135BA349001274A3 /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
+		03EACFCD135BA390001274A3 /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
+		03EACFCE135BA390001274A3 /* AudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioController.m; sourceTree = "<group>"; };
+		03EACFD8135BB8D0001274A3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		03EACFDA135BB96E001274A3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		03EACFDC135BB977001274A3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		03F6EE4B135B757200A81968 /* PlayPauseTableButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayPauseTableButton.h; sourceTree = "<group>"; };
+		03F6EE4C135B757200A81968 /* PlayPauseTableButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayPauseTableButton.m; sourceTree = "<group>"; };
 		3201088596B4756681693700 /* Three20UICommon.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UICommon.xcodeproj; path = ../three20/src/Three20UICommon/Three20UICommon.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320A2827FEC940B25BC42C60 /* Three20Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Core.xcodeproj; path = ../three20/src/Three20Core/Three20Core.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320A5A189C235877202780D0 /* Three20Network.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Network.xcodeproj; path = ../three20/src/Three20Network/Three20Network.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -258,6 +276,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03EACFDD135BB977001274A3 /* MediaPlayer.framework in Frameworks */,
+				03EACFDB135BB96E001274A3 /* AudioToolbox.framework in Frameworks */,
+				03EACFD9135BB8D0001274A3 /* CFNetwork.framework in Frameworks */,
 				320E4DD7ACF75914E19547D5 /* libextXML.a in Frameworks */,
 				3201088596B4756681693705 /* libThree20UICommon.a in Frameworks */,
 				320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */,
@@ -280,9 +301,9 @@
 		032EBDF91358C8C90079FC6E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0344E9DC135A6F5F000272BD /* Object */,
 				032EBE621358DBA90079FC6E /* SongModel.h */,
 				032EBE631358DBAA0079FC6E /* SongModel.m */,
+				0344E9DC135A6F5F000272BD /* Object */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -290,13 +311,7 @@
 		032EBDFD1358CA650079FC6E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0347FBEA135AC08600962EA0 /* SongTableCell.h */,
-				0347FBEB135AC08600962EA0 /* SongTableCell.m */,
-				0347FBED135AC0A000962EA0 /* SongTableItem.h */,
-				0347FBEE135AC0A200962EA0 /* SongTableItem.m */,
-				0344E9DD135A6F7D000272BD /* Data Source */,
-				032EBEDC135A225B0079FC6E /* SongTableViewController.h */,
-				032EBEDD135A225B0079FC6E /* SongTableViewController.m */,
+				03F6EE47135B74C100A81968 /* Table */,
 				0344E9DE135A6F9D000272BD /* SongDetailViewController.h */,
 				0344E9DF135A6F9E000272BD /* SongDetailViewController.m */,
 			);
@@ -362,6 +377,9 @@
 		037158FC13576E4B00FC6EE8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				03EACFDC135BB977001274A3 /* MediaPlayer.framework */,
+				03EACFDA135BB96E001274A3 /* AudioToolbox.framework */,
+				03EACFD8135BB8D0001274A3 /* CFNetwork.framework */,
 				320E4DD7ACF75914E19547D0 /* extXML.xcodeproj */,
 				3201088596B4756681693700 /* Three20UICommon.xcodeproj */,
 				320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */,
@@ -381,6 +399,8 @@
 		0371590313576E4B00FC6EE8 /* iHype */ = {
 			isa = PBXGroup;
 			children = (
+				03EACFC1135BA33C001274A3 /* SoundController */,
+				03F6EE4A135B753100A81968 /* Additions */,
 				032EBDFD1358CA650079FC6E /* Controller */,
 				032EBDF91358C8C90079FC6E /* Model */,
 				0371590C13576E4B00FC6EE8 /* iHypeAppDelegate.h */,
@@ -403,6 +423,58 @@
 				0371590A13576E4B00FC6EE8 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		03EACFC1135BA33C001274A3 /* SoundController */ = {
+			isa = PBXGroup;
+			children = (
+				03EACFCD135BA390001274A3 /* AudioController.h */,
+				03EACFCE135BA390001274A3 /* AudioController.m */,
+				03EACFC2135BA349001274A3 /* AudioStreamer.h */,
+				03EACFC3135BA349001274A3 /* AudioStreamer.m */,
+			);
+			name = SoundController;
+			sourceTree = "<group>";
+		};
+		03F6EE47135B74C100A81968 /* Table */ = {
+			isa = PBXGroup;
+			children = (
+				0344E9DD135A6F7D000272BD /* Data Source */,
+				03F6EE49135B74EC00A81968 /* Item  */,
+				03F6EE48135B74D000A81968 /* Cell */,
+				032EBEDC135A225B0079FC6E /* SongTableViewController.h */,
+				032EBEDD135A225B0079FC6E /* SongTableViewController.m */,
+			);
+			name = Table;
+			sourceTree = "<group>";
+		};
+		03F6EE48135B74D000A81968 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0347FBEA135AC08600962EA0 /* SongTableCell.h */,
+				0347FBEB135AC08600962EA0 /* SongTableCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		03F6EE49135B74EC00A81968 /* Item  */ = {
+			isa = PBXGroup;
+			children = (
+				0347FBED135AC0A000962EA0 /* SongTableItem.h */,
+				0347FBEE135AC0A200962EA0 /* SongTableItem.m */,
+				03F6EE4B135B757200A81968 /* PlayPauseTableButton.h */,
+				03F6EE4C135B757200A81968 /* PlayPauseTableButton.m */,
+			);
+			name = "Item ";
+			sourceTree = "<group>";
+		};
+		03F6EE4A135B753100A81968 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				0347FC4C135ADA8B00962EA0 /* HypeMachineURLRequest.h */,
+				0347FC4D135ADA8D00962EA0 /* HypeMachineURLRequest.m */,
+			);
+			name = Additions;
 			sourceTree = "<group>";
 		};
 		3201088596B4756681693703 /* Products */ = {
@@ -709,6 +781,10 @@
 				0344E9E0135A6F9E000272BD /* SongDetailViewController.m in Sources */,
 				0347FBEC135AC08600962EA0 /* SongTableCell.m in Sources */,
 				0347FBEF135AC0A700962EA0 /* SongTableItem.m in Sources */,
+				0347FC4E135ADA8F00962EA0 /* HypeMachineURLRequest.m in Sources */,
+				03F6EE4D135B757200A81968 /* PlayPauseTableButton.m in Sources */,
+				03EACFC4135BA349001274A3 /* AudioStreamer.m in Sources */,
+				03EACFCF135BA390001274A3 /* AudioController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

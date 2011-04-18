@@ -18,7 +18,13 @@
 @synthesize link = _link;
 @synthesize artist = _artist;
 @synthesize albumUrl = _albumUrl;
+@synthesize length = _length;
+@synthesize played = _played;
 
+-(NSString*) downloadUrlAsString
+{
+    return [NSString stringWithFormat:@"http://hypem.com/serve/play/%@/%@.mp3", self.id, self.key];
+}
 
 - (void) dealloc {
     TT_RELEASE_SAFELY(_id);

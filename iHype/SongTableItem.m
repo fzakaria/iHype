@@ -52,7 +52,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithCoder:(NSCoder*)decoder {
-    if (self = [super initWithCoder:decoder]) {
+    if ((self = [super initWithCoder:decoder])) {
         self.title = [decoder decodeObjectForKey:@"title"];
         self.artist = [decoder decodeObjectForKey:@"artist"];
         self.imageURL = [decoder decodeObjectForKey:@"imageURL"];

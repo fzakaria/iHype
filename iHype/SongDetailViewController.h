@@ -8,10 +8,13 @@
 
 #import <Three20/Three20.h>
 
+@class Song;
 
 @interface SongDetailViewController :  TTTableViewController {
-    
+    Song * _song;
 }
 - (id)initWithSongIndex:(int)songIndex;
+
+@property (nonatomic, retain) Song * song;
 
 @end

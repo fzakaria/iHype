@@ -9,10 +9,11 @@
 #import "SongModel.h"
 #import "extXML/extXML.h"
 #import "Song.h"
-
+#import "HypeMachineURLRequest.h"
 @implementation SongModel
 
 @synthesize songs = _songs;
+@synthesize cookie = _cookie;
 
 -(id)init
 {
@@ -50,10 +51,12 @@
                              requestWithURL: url
                              delegate: self];
     
+    request.shouldHandleCookies = NO;
+    
     request.cachePolicy = cachePolicy;
     request.cacheExpirationAge = TT_CACHE_EXPIRATION_AGE_NEVER;
     
-    TTURLDataResponse * response = [[TTURLDataResponse alloc] init];
+    HypeMachineURLRequest * response = [[HypeMachineURLRequest alloc] init];
     request.response = response;
     TT_RELEASE_SAFELY(response);
     
@@ -61,7 +64,10 @@
 }
 
 - (void)requestDidFinishLoad:(TTURLRequest*)request {
-    TTURLDataResponse* response = request.response;
+    HypeMachineURLRequest* response = request.response;
+    NSHTTPURLResponse  * httpResponse = [response httpResponse];
+    NSDictionary *dict = [httpResponse allHeaderFields];
+    self.cookie = [dict objectForKey:@"Set-Cookie"];
     NSData * htmlData = response.data;
     NSString * htmlString = [[NSString alloc] initWithData:htmlData encoding:NSASCIIStringEncoding];
     
@@ -170,6 +176,7 @@ static SongModel *sharedSongModel = nil;
 - (void)dealloc
 {
     TT_RELEASE_SAFELY(_songs);
+    TT_RELEASE_SAFELY(_cookie);
     [super dealloc];
 }
 

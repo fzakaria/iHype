@@ -10,9 +10,18 @@
 #import "Song.h"
 #import "SongModel.h"
 #import "SongTableViewController.h"
-
+#import "PlayPauseTableButton.h"
+#import "AudioController.h"
 
 @implementation SongDetailViewController
+
+@synthesize song = _song;
+
+-(void) dealloc
+{
+    [_song release];
+    [super dealloc];
+}
 
 - (id)initWithSongIndex:(int)songIndex {
     
@@ -25,7 +34,7 @@
     
         NSMutableArray * songs = [SongModel sharedSongModel].songs;
         
-        Song *song = (Song *) [songs objectAtIndex:songIndex];
+        self.song  = (Song *) [songs objectAtIndex:songIndex];
         
         self.title = @"Song Details";
         /*[dataSource.items addObject:@"Song Details"];
@@ -37,21 +46,54 @@
         [dataSource.items addObject:@"Song Controls"];
         */
         
+        CGRect frame = CGRectMake(0.0, 0.0, 200.0, 10.0);
+        UISlider *slider = [[UISlider alloc] initWithFrame:frame];
+        [slider addTarget:self action:@selector(sliderMoved:) forControlEvents:UIControlEventValueChanged];
+        [slider setBackgroundColor:[UIColor clearColor]];
+        slider.minimumValue = 0.0;
+        slider.maximumValue = 100.0;
+        slider.continuous = YES;
+        slider.value = 0.0;
+        
         self.dataSource = [TTSectionedDataSource dataSourceWithObjects:
                            @"Song Details",
-                           [TTTableCaptionItem itemWithText:song.title caption:@"Title"],
-                           [TTTableCaptionItem itemWithText:song.artist caption:@"Artist"],
-                           [TTTableCaptionItem itemWithText:song.link caption:@"Link"],
-                           [TTTableCaptionItem itemWithText:song.id caption:@"ID"],
+                           [TTTableCaptionItem itemWithText:self.song.title caption:@"Title"],
+                           [TTTableCaptionItem itemWithText:self.song.artist caption:@"Artist"],
+                           [TTTableCaptionItem itemWithText:self.song.link caption:@"Link"],
+                           [TTTableCaptionItem itemWithText:self.song.id caption:@"ID"],
                            @"Song Controls",
-                           [TTTableCaptionItem itemWithText:song.id caption:@"ID"],
+                           [TTTableControlItem itemWithCaption:nil control:slider],
+                           [PlayPauseTableButton itemWithText:@"Play" delegate:self selector:@selector(playButtonPressed:)],
                            nil];
+        
+        [slider release];
                            
 
         
     }
     return self;
     
+}
+
+-(IBAction)sliderMoved:(UISlider *)aSlider
+{
+    NSLog(@"Slider Moved");
+}
+
+-(IBAction) playButtonPressed:(id) sender
+{
+    PlayPauseTableButton * tableButton = (PlayPauseTableButton*) sender;
+    [tableButton toggleButton];
+    if ([tableButton isPlaying])
+    {
+        [[AudioController sharedAudioController] play:self.song withCookie:[SongModel sharedSongModel].cookie];
+    }
+    else
+    {
+        [[AudioController sharedAudioController] stop];
+    }
+    [self refresh];
+     NSLog(@"Button Pressed");
 }
 
 @end

@@ -18,10 +18,12 @@ typedef enum {
 @interface SongModel  : TTURLRequestModel {
     NSMutableArray*  _songs;
     SongType _type;
-    NSUInteger _page; 
+    NSUInteger _page;
+    NSString * _cookie;
 }
 
 + (SongModel *) sharedSongModel;
 @property (nonatomic, readonly) NSMutableArray* songs;
+@property (nonatomic, copy) NSString* cookie;
 
 @end
