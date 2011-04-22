@@ -15,6 +15,7 @@ typedef enum {
     DefaultSongs = NewSongs
 } SongType;
 
+@class Song;
 @interface SongModel  : TTURLRequestModel {
     NSMutableArray*  _songs;
     SongType _type;
@@ -23,6 +24,8 @@ typedef enum {
 }
 
 + (SongModel *) sharedSongModel;
+-(int) findIndexOfSong:(Song*)song;
+
 @property (nonatomic, readonly) NSMutableArray* songs;
 @property (nonatomic, copy) NSString* cookie;
 

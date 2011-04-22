@@ -200,7 +200,8 @@ static AudioController * sharedAudioController = nil;
         NSLog(@"Streaming is idle...");
         //lets play the next song
         NSMutableArray * songs = [[SongModel sharedSongModel] songs];
-        int index = [songs indexOfObject:self.currentSongPlaying];
+        int index = [[SongModel sharedSongModel] findIndexOfSong:self.currentSongPlaying];
+        self.currentSongPlaying.played = 0;
         Song * nextSong = [songs objectAtIndex:index+1];
         if (nextSong)
             [self play:nextSong withCookie:self.cookie];

@@ -7,7 +7,6 @@
 //
 
 #import "SongModel.h"
-#import "extXML/extXML.h"
 #import "Song.h"
 #import "HypeMachineURLRequest.h"
 @implementation SongModel
@@ -170,6 +169,21 @@
     [_songs addObjectsFromArray:newSongs];
     
     [super requestDidFinishLoad:request];
+}
+
+-(int) findIndexOfSong:(Song*)song
+{
+    for (int i = 0 ; i < [_songs count]; ++i)
+    {
+        Song * currentSong = [_songs objectAtIndex:i];
+        
+        if ([song.id isEqualToString:currentSong.id])
+        {
+            return i;
+        }
+    }
+    
+    return -1;
 }
 
 #pragma mark Singleton
